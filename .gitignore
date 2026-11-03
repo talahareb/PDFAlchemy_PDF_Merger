@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-error.log*
+*.log
+coverage/
+.tmp/
+tmp/
+uploads/
+merged-pdfs/
