@@ -1,0 +1,23 @@
+{
+  "name": "pdfalchemy-pdf-merger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local web app for merging PDF documents in a chosen order using Node.js.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "pdf", "pdf-merger", "nodejs", "express", "file-upload", "pdf-lib"
+  ],
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^2.0.2",
+    "pdf-lib": "^1.17.1"
+  }
+}
