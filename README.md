@@ -1,81 +1,70 @@
-# PDFAlchemy — PDF Merger
+# PDFAlchemy — Original PDF Merger (Restored)
 
-A lightweight, browser-based PDF-merging application built with **Node.js, Express, Multer, and pdf-lib**. Upload 2–5 PDF documents, arrange their order, and download one merged PDF.
+This repository restores the **original PDFAlchemy student web application** and its visual design. It uses the original HTML and CSS for the PDF upload page and merge-history page—not a replacement interface. The backend has focused fixes so files can be merged, downloaded, recorded in history, and downloaded again later.
 
-This repository is a cleaned-up, functional version of an earlier PDFAlchemy web-development project. Its original core workflow—select PDF files, merge them, and download the result—has been retained and improved.
+## Screenshot
 
-## Features
+### Original PDFAlchemy interface
 
-- Upload **2–5 PDF files** (up to **10 MB per file**)
-- Drag and drop PDFs or choose them using the file picker
-- Reorder or remove files before merging
-- Merge pages in the selected file order
-- Download the resulting PDF immediately
-- Client-side and server-side validation with readable error messages
-- Process uploaded documents in server memory instead of saving them to public folders
-- Automated tests for merging, validation, and invalid uploads
+![Original PDFAlchemy PDF upload and merge interface](screenshots/pdfalchemy-homepage.png)
 
-## Tech stack
+The screenshot above shows the original PDFAlchemy upload screen running locally.
 
-| Component | Technology |
-| --- | --- |
-| Frontend | HTML5, CSS3, vanilla JavaScript |
-| Backend | Node.js, Express |
-| File uploads | Multer |
-| PDF manipulation | pdf-lib |
-| Testing | Node.js built-in test runner |
+## Original features
 
-## Getting started
+- Select **2–5 PDF documents** and merge them in upload order
+- Download the merged result automatically
+- Visit the **History** page to see previous merges, source filenames, and dates
+- Download previously merged documents again from the History page
+- Save files and history between runs, using local storage by default or **optional MongoDB**
 
-**Prerequisite:** Node.js **20 or later** and npm.
+## Run locally
+
+Install Node.js **20 or newer**. In this directory, run:
 
 ```bash
 npm install
 npm start
 ```
 
-Open **http://127.0.0.1:3000** in your browser. Select 2–5 PDFs, reorder them using the arrows, and click **Merge PDFs**.
+Open **http://127.0.0.1:3000** and choose 2–5 PDFs. Click **History** to find earlier merges.
 
-For automatic reloads during development:
+**No MongoDB setup is required** for normal local use: PDFAlchemy writes merge history to `data/history.json` and finished PDFs to `data/merged/`. Both are kept between runs and ignored by Git. If you want the original MongoDB-backed history, create a `.env` file based on `.env.example` with `MONGODB_URI=mongodb://127.0.0.1:27017/pdfalchemy` and start your MongoDB service first.
 
-```bash
-npm run dev
-```
+## Tests
 
-To run automated tests:
+Run `npm test`. See `VERIFICATION.md` for what has actually been tested. Integration tests use the local-storage mode and do not require MongoDB.
 
-```bash
-npm test
-```
-
-By default, the server listens on `127.0.0.1:3000`. You can change the port with the `PORT` environment variable, and the host with `HOST`. This project is intended for **local development**, not public hosting as-is.
-
-## Project structure
+## File structure
 
 ```text
 PDFAlchemy-PDF-Merger/
-├── app.js                 # Express app, upload validation, PDF merging
-├── server.js              # Local server entry point
+├── index.js                  # Original server behavior, with necessary bug fixes
+├── historyStore.js           # Persistent JSON history + optional MongoDB history
 ├── public/
-│   ├── index.html         # Web interface
-│   ├── styles.css         # Responsive styling
-│   └── script.js          # File selection, reordering, and download
-├── test/
-│   └── merge.test.js      # Automated HTTP and PDF checks
-├── .gitignore
-├── package.json
+│   ├── index.html            # ORIGINAL PDFAlchemy interface
+│   ├── styles.css            # ORIGINAL styles
+│   ├── script.js             # ORIGINAL upload UI logic
+│   ├── history.html          # ORIGINAL history-page interface
+│   ├── history.css           # ORIGINAL history styling
+│   ├── history.js            # Displays safe filenames and working download links
+│   └── merged-pdfs.html      # Original unused placeholder file (preserved)
+├── controllers/              # Original coursework modules (preserved)
+├── models/                   # Original coursework module (preserved)
+├── routes/                   # Original coursework module (preserved)
+├── database.js               # Original MongoDB connection module (preserved)
+├── data/                     # PRIVATE uploads, history and merged PDFs; gitignored
+├── tests/                    # Integration tests
+├── .env.example
 └── README.md
 ```
 
-## How it works
+## Privacy and limitations
 
-1. The browser sends the selected files to `POST /merge-pdfs` as multipart form data.
-2. Multer enforces limits and holds uploaded files in memory during the request.
-3. pdf-lib reads the PDFs, copies their pages in order, and creates a new PDF.
-4. The server returns a downloadable PDF in the HTTP response without writing source or output PDFs to disk.
+PDF documents are **not** included in the public GitHub source archive. The previous backup includes personal résumé documents, so those must stay private. Files uploaded to this app are stored **on your own computer**. Anyone who can reach a publicly deployed copy could access download links because this is a **local educational prototype without accounts or authentication**; do **not** publicly deploy it with sensitive documents. File names are displayed on the history page but rendered as plain text to avoid HTML injection.
 
-### API
+Files are limited to **12 MB each**; a maximum of five uploads per merge is accepted. This is not a fully hardened internet-facing file service.
 
-`POST /merge-pdfs` — multipart form data with the field name `pdfs` repeated for each file. On success, returns an `application/pdf` attachment. Invalid requests return a JSON error message.
+## Credits
 
-
+Original PDFAlchemy implementation and visual design preserved from the student's project. See `CHANGES_FROM_ORIGINAL.md` for all modifications made to restore working functionality.

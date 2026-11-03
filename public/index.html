@@ -1,53 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fbf8f7" />
-    <meta name="description" content="PDFAlchemy: combine PDF files in your preferred order." />
-    <title>PDFAlchemy · PDF Merger</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDFAlchemy</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
-    <main class="container">
-      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> PDFAlchemy <span class="version">PDF Merger</span></div>
-      <section class="hero" aria-labelledby="page-title">
-        <span class="eyebrow">YOUR DOCUMENTS, ONE PDF</span>
-        <h1 id="page-title">Merge PDFs.<br/><em>Beautifully simple.</em></h1>
-        <p class="intro">Combine 2–5 PDFs into one document. Rearrange their order, merge, and download—all from a clean, simple workspace.</p>
-
-        <div class="workspace">
-          <div id="drop-zone" class="drop-zone">
-            <div class="upload-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V3m0 0 4 4m-4-4L8 7"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
-            </div>
-            <h2>Add your PDF files</h2>
-            <p>Drag files here, or choose them from your computer.</p>
-            <label class="choose-button" for="file-input">Choose PDF files</label>
-            <input type="file" id="file-input" name="pdfs" accept=".pdf,application/pdf" multiple aria-label="Choose PDF files" />
-            <p class="upload-caption">2–5 PDFs · up to 10 MB each</p>
-          </div>
-
-          <div id="file-panel" class="file-panel" hidden>
-            <div class="panel-heading"><h2>Selected files</h2><span id="file-count">0 files</span></div>
-            <p class="helper">Use the arrows to change the merge order.</p>
-            <ol id="file-list" class="file-list"></ol>
-          </div>
-
-          <div class="actions">
-            <button id="merge-button" type="button" disabled>Merge PDFs <span aria-hidden="true">→</span></button>
-            <button id="clear-button" type="button" class="text-button" hidden>Clear files</button>
-          </div>
-          <p id="status" class="status" role="status" aria-live="polite"></p>
-        </div>
-
-        <div class="footnotes">
-          <span>✦ PDFs are processed on your local server</span>
-          <span>✦ Files are not saved after merging</span>
-        </div>
-      </section>
-      <footer>Made with care · PDFAlchemy is an educational software project</footer>
-    </main>
+    <div class="container">
+      <h1 class="title">PDFAlchemy</h1>
+      <form
+        id="pdf-merger-form"
+        action="/merge-pdfs"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" id="file-input" name="pdfs" multiple />
+        <button type="submit" class="merge-btn">Merge PDFs</button>
+        <a href="./history.html">
+          <button type="button" class="history-btn">History</button>
+      </a>
+        
+      </form>
+      <p id="message"></p>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
