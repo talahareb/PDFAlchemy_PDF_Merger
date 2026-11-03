@@ -78,18 +78,4 @@ PDFAlchemy-PDF-Merger/
 
 `POST /merge-pdfs` — multipart form data with the field name `pdfs` repeated for each file. On success, returns an `application/pdf` attachment. Invalid requests return a JSON error message.
 
-## Notes and limitations
 
-- The app merges pages; it does **not** OCR, edit text, compress PDFs, or unlock password-protected documents.
-- The earlier prototype included incomplete MongoDB/history components. **This edition intentionally focuses on working PDF merging and has no history database.**
-- PDFs are handled **by the local Node.js server**, not entirely within the browser. No uploaded documents are intentionally retained on disk, but the app is not security-audited for public deployment.
-- For public hosting, add rate limiting, comprehensive content scanning, hardened deployment settings, and operational monitoring.
-- This application has no user authentication or cloud storage.
-
-## Original-project improvements
-
-Compared with the earlier prototype, this version removes unused dependencies, unfinished history pages, local `.env` secrets, uploaded documents, and `node_modules`; adds meaningful validations, reorder controls, in-memory processing, automated tests, a clearer folder structure, and documentation.
-
-## Project context
-
-Educational software-development project. If the original project was collaborative, retain appropriate collaborator credits when publishing to GitHub.
