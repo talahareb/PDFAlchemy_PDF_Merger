@@ -2,7 +2,6 @@
 
 This repository restores the **original PDFAlchemy student web application** and its visual design. It uses the original HTML and CSS for the PDF upload page and merge-history page—not a replacement interface. The backend has focused fixes so files can be merged, downloaded, recorded in history, and downloaded again later.
 
-## Screenshot
 
 ### Original PDFAlchemy interface
 
@@ -58,13 +57,3 @@ PDFAlchemy-PDF-Merger/
 ├── .env.example
 └── README.md
 ```
-
-## Privacy and limitations
-
-PDF documents are **not** included in the public GitHub source archive. The previous backup includes personal résumé documents, so those must stay private. Files uploaded to this app are stored **on your own computer**. Anyone who can reach a publicly deployed copy could access download links because this is a **local educational prototype without accounts or authentication**; do **not** publicly deploy it with sensitive documents. File names are displayed on the history page but rendered as plain text to avoid HTML injection.
-
-Files are limited to **12 MB each**; a maximum of five uploads per merge is accepted. This is not a fully hardened internet-facing file service.
-
-## Credits
-
-Original PDFAlchemy implementation and visual design preserved from the student's project. See `CHANGES_FROM_ORIGINAL.md` for all modifications made to restore working functionality.
