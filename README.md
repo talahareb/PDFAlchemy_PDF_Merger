@@ -1,4 +1,4 @@
-# PDFAlchemy — Original PDF Merger (Restored)
+# PDFAlchemy — PDF Merger 
 
 This repository restores the **original PDFAlchemy student web application** and its visual design. It uses the original HTML and CSS for the PDF upload page and merge-history page—not a replacement interface. The backend has focused fixes so files can be merged, downloaded, recorded in history, and downloaded again later.
 
