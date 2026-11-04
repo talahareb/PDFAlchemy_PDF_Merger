@@ -1,59 +1,91 @@
-# PDFAlchemy — PDF Merger 
+# PDFAlchemy — PDF Merger
 
-This repository restores the **original PDFAlchemy student web application** and its visual design. It uses the original HTML and CSS for the PDF upload page and merge-history page—not a replacement interface. The backend has focused fixes so files can be merged, downloaded, recorded in history, and downloaded again later.
+PDFAlchemy is a student-built web application for **merging PDF documents** and managing previously generated files. It features a straightforward upload interface, a merge-history page, and persistent storage so completed PDFs can be downloaded again later.
 
+This repository preserves the original interface and styling, with targeted backend fixes to support merging, downloads, and history management.
 
-### Original PDFAlchemy interface
+## Preview
 
-![Original PDFAlchemy PDF upload and merge interface](screenshots/pdfalchemy-homepage.png)
+![PDFAlchemy upload interface](screenshots/pdfalchemy-homepage.png)
 
-The screenshot above shows the original PDFAlchemy upload screen running locally.
+*PDFAlchemy's upload page running locally.*
 
-## Original features
+## Features
 
-- Select **2–5 PDF documents** and merge them in upload order
-- Download the merged result automatically
-- Visit the **History** page to see previous merges, source filenames, and dates
-- Download previously merged documents again from the History page
-- Save files and history between runs, using local storage by default or **optional MongoDB**
+- **Merge 2–5 PDFs** into one document, in the order selected.
+- **Download automatically** when a merge is complete.
+- **Browse merge history** with source filenames and dates.
+- **Download past results** directly from the History page.
+- **Keep files between sessions** using local storage, with optional MongoDB support for history.
 
-## Run locally
+## Getting started
 
-Install Node.js **20 or newer**. In this directory, run:
+**Requirements:** Node.js 20 or newer and npm.
 
 ```bash
 npm install
 npm start
 ```
 
-Open **http://127.0.0.1:3000** and choose 2–5 PDFs. Click **History** to find earlier merges.
+Open **http://127.0.0.1:3000** in your browser, select 2–5 PDF files, and merge them. Use the **History** page to access previous results.
 
-**No MongoDB setup is required** for normal local use: PDFAlchemy writes merge history to `data/history.json` and finished PDFs to `data/merged/`. Both are kept between runs and ignored by Git. If you want the original MongoDB-backed history, create a `.env` file based on `.env.example` with `MONGODB_URI=mongodb://127.0.0.1:27017/pdfalchemy` and start your MongoDB service first.
+### Storage
 
-## Tests
+No database setup is needed for local use. By default, PDFAlchemy stores:
 
-Run `npm test`. See `VERIFICATION.md` for what has actually been tested. Integration tests use the local-storage mode and do not require MongoDB.
+- Merge history in `data/history.json`
+- Generated PDFs in `data/merged/`
 
-## File structure
+These files persist between runs and are excluded from Git.
+
+**Optional MongoDB:** Create a `.env` file using `.env.example`, set the connection string below, and start your MongoDB service before running the app.
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/pdfalchemy
+```
+
+## Testing
+
+Run the integration tests with:
+
+```bash
+npm test
+```
+
+The tests use local storage and do not require MongoDB. See [`VERIFICATION.md`](VERIFICATION.md) for the project's recorded verification details.
+
+## Project structure
 
 ```text
 PDFAlchemy-PDF-Merger/
-├── index.js                  # Original server behavior, with necessary bug fixes
-├── historyStore.js           # Persistent JSON history + optional MongoDB history
+├── index.js                 # Application server
+├── historyStore.js          # Local JSON and optional MongoDB history
 ├── public/
-│   ├── index.html            # ORIGINAL PDFAlchemy interface
-│   ├── styles.css            # ORIGINAL styles
-│   ├── script.js             # ORIGINAL upload UI logic
-│   ├── history.html          # ORIGINAL history-page interface
-│   ├── history.css           # ORIGINAL history styling
-│   ├── history.js            # Displays safe filenames and working download links
-│   └── merged-pdfs.html      # Original unused placeholder file (preserved)
-├── controllers/              # Original coursework modules (preserved)
-├── models/                   # Original coursework module (preserved)
-├── routes/                   # Original coursework module (preserved)
-├── database.js               # Original MongoDB connection module (preserved)
-├── data/                     # PRIVATE uploads, history and merged PDFs; gitignored
-├── tests/                    # Integration tests
-├── .env.example
+│   ├── index.html           # PDF upload page
+│   ├── styles.css           # Upload page styling
+│   ├── script.js            # Upload interactions
+│   ├── history.html         # Merge history page
+│   ├── history.css          # History page styling
+│   ├── history.js           # History display and download links
+│   └── merged-pdfs.html     # Preserved placeholder page
+├── controllers/             # Coursework modules
+├── models/                  # Coursework modules
+├── routes/                  # Coursework modules
+├── database.js              # MongoDB connection module
+├── data/                    # Local history and PDFs (gitignored)
+├── screenshots/             # README screenshots
+├── tests/                   # Integration tests
+├── .env.example             # Example configuration
+├── VERIFICATION.md          # Testing and verification notes
 └── README.md
 ```
+
+## Key concepts
+
+- **Full-stack web development:** connecting a browser-based interface with server-side PDF processing.
+- **File upload and processing:** accepting multiple documents, merging them in order, and returning a downloadable result.
+- **Data persistence:** keeping generated PDFs and their merge history available across application restarts.
+- **Storage flexibility:** using local JSON-based history by default, with optional MongoDB integration.
+- **Integration testing:** checking the complete merge-and-download workflow through automated tests.
+
+PDFAlchemy brings together file handling, backend development, and persistent data management in a practical web application.
